@@ -22,7 +22,10 @@ afterAll(async () => {
     //After all the tests are done we're going to close our server
     //and rollback our database.
     await db.migrate.rollback()
-
+    
+    //This closes down knex and should allow Jest to complete without forceExit
+    await db.destroy()
+    
     //This closes the app but it doesn't stop the tests in
     //Jest when done - that's why we have to --forceExit
     //when running Jest for now.
